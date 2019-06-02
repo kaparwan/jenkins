@@ -1,6 +1,19 @@
 FROM openjdk:8-jdk-stretch
 
-RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git curl   && rm -rf /var/lib/apt/lists/*
+RUN  apt-get  update
+RUN apt-get  -y  install apt-transport-https ca-certificates curl software-properties-common
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg |   apt-key add -
+RUN  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+RUN  apt-get  update
+
+RUN apt-cache policy docker-ce
+RUN apt-get -y  install docker-ce
+RUN service docker start
+RUN usermod -aG docker  jenkins
+
+ 
+
 
 ARG user=jenkins
 ARG group=jenkins
@@ -45,7 +58,7 @@ ARG JENKINS_VERSION
 ENV JENKINS_VERSION ${JENKINS_VERSION:-2.121.3}
 
 # jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=5bb075b81a3929ceada4e960049e37df5f15a1e3cfc9dc24d749858e70b48919
+ARG JENKINS_SHA=50fbce11fa147d0ecd9ecf36cdae83ef795fb7d4776f33b5ea13bc15bf6e3c13
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
