@@ -10,9 +10,10 @@ RUN  apt-get  update
 RUN apt-cache policy docker-ce
 RUN apt-get -y  install docker-ce
 RUN service docker start
-RUN usermod -aG docker  jenkins
+RUN cat /etc/passwd
+#RUN usermod -aG docker  jenkins
 
- 
+
 
 
 ARG user=jenkins
