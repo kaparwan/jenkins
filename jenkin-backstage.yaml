@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: jenkins
+  description: Jenkins Git Code 
+  tags:
+    - jenkins
+    - automation
+spec:
+  type: service
+  lifecycle: production
+  owner: guest
